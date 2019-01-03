@@ -13,12 +13,13 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.2",
+    "nodemon": "^1.18.9",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
   },
   "scripts": {
-    "build": "rm -rf ./dist && ./node_modules/.bin/tsc",
-    "start": "yarn build && node dist/server.js",
+    "build": "rm -rf ./dist && NODE_ENV=production ./node_modules/.bin/tsc",
+    "start": "./node_modules/.bin/nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
