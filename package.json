@@ -8,19 +8,22 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.11",
     "eslint": "^5.11.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.2",
+    "jest": "^23.6.0",
     "nodemon": "^1.18.9",
+    "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
   },
   "scripts": {
     "build": "rm -rf ./dist && NODE_ENV=production ./node_modules/.bin/tsc",
     "start": "./node_modules/.bin/nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
