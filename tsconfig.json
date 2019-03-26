@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "module": "commonjs",
     "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es7"
+    ],
+    "outDir": "./dist",
     "pretty": true,
     "sourceMap": true,
-    "target": "es6",
-    "outDir": "./dist"
+    "target": "es5",
+    "jsx": "react"
   },
   "include": [
-    "src/**/*.ts"
+    "src/client/**/*.{ts,tsx}"
   ],
   "exclude": [
     "node_modules"
