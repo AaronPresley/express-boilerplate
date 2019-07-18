@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 const App: React.FunctionComponent<{}> = (): JSX.Element => (
   <div>
     <Switch>
-      <Route component={() => (<p>Hello</p>)} />
+      <Route component={() => <p>Hello</p>} />
     </Switch>
   </div>
 );

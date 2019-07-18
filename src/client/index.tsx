@@ -11,7 +11,7 @@ import theme, { globalStyles } from './styles';
 
 const store = configureStore();
 
-reactDom.render((
+reactDom.render(
   <Provider store={store}>
     <Router>
       <ThemeProvider theme={theme}>
@@ -19,5 +19,6 @@ reactDom.render((
         <App />
       </ThemeProvider>
     </Router>
-  </Provider>
-), document.getElementById('root'));
+  </Provider>,
+  document.getElementById('root'),
+);

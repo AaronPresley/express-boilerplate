@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 import app, { IS_PROD } from '../config/app';
 
 const PORT = 8080;

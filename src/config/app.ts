@@ -1,6 +1,5 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import * as fs from 'fs';
 import * as path from 'path';
 
 import * as webpack from 'webpack';
@@ -10,7 +9,7 @@ import wpConfig from '../../webpack.config';
 export const STATIC_PATH = path.join(__dirname, '../../dist');
 export const IS_PROD = process.env.NODE_ENV === 'production';
 
-const app:express.Application = express();
+const app: express.Application = express();
 
 // App setup
 app.use(bodyParser.json());
@@ -18,9 +17,11 @@ app.use('/static/', express.static(STATIC_PATH));
 
 if (!IS_PROD) {
   const compiler = webpack(wpConfig);
-  app.use(wpMiddleware(compiler, {
-    writeToDisk: true,
-  }));
+  app.use(
+    wpMiddleware(compiler, {
+      writeToDisk: true,
+    }),
+  );
 }
 
 // Our API routes

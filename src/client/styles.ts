@@ -4,7 +4,7 @@ export const globalStyles = `
   }
 `;
 
-export default ({
+export default {
   colors: {},
   fonts: {},
-});
+};
