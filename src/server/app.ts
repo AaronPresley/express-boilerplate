@@ -1,10 +1,14 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as path from 'path';
-
 import * as webpack from 'webpack';
 import * as wpMiddleware from 'webpack-dev-middleware';
+
 import wpConfig from '../../webpack.config';
+
+// --- Route Imports ---
+import authRouterV1 from '../server/api/auth-v1';
+// ---------------------
 
 export const STATIC_PATH = path.join(__dirname, '../../dist');
 export const IS_PROD = process.env.NODE_ENV === 'production';
@@ -25,7 +29,7 @@ if (!IS_PROD) {
 }
 
 // Our API routes
-// app.use('/api/v1/some-endpoint', apiRoute)
+app.use('/api/v1/auth', authRouterV1);
 
 // Everything else should go to our frontend
 app.get('*', (req, res) => {
