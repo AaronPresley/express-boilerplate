@@ -1,22 +1,13 @@
-/* eslint-disable no-console, @typescript-eslint/explicit-function-return-type */
-import * as mongoose from 'mongoose';
+import app, { IS_PROD } from '../config/app';
 
-import db from './database';
-import { app } from './app';
+const PORT = 8080;
 
-const isProd = process.env.NODE_ENV === 'production';
-
-const startServer = () => app.listen(8080, () => {
-  let output = `🚨 Booting in DEV mode`
-  if (isProd) {
+app.listen(PORT, () => {
+  let output = `🚨 Booting up in DEV mode`;
+  if (IS_PROD) {
     output = `✅ Booting in PROD mode`;
   }
-  console.log(output);
-  console.log(`App running at http://localhost:8080/`);
-});
 
-db.connect();
-mongoose.connection
-  .on('error', console.error)
-  .on('disconnected', () => console.error('Disconnected!'))
-  .once('open', startServer);
+  console.log(output);
+  console.log(`App running at http://localhost:${PORT}/`);
+});

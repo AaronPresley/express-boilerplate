@@ -29,6 +29,7 @@
 .vscode
 .vuepress/dist
 .yarn-integrity
+*.code-workspace
 *.log
 *.pid
 *.pid.lock

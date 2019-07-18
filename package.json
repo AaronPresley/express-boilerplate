@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dev": "NODE_ENV=development ./node_modules/.bin/webpack",
-    "build:prod": "NODE_ENV=production ./node_modules/.bin/webpack",
-    "clean": "concurrently \"rm -rf node_modules && yarn\" \"rm -rf dist\"",
-    "lint": "./node_modules/.bin/eslint src/ --ext .ts,.tsx",
-    "start:client": "yarn build:dev --watch",
-    "start:server": "NODE_ENV=development ./node_modules/.bin/nodemon",
-    "start": "concurrently \"yarn start:server\" \"yarn start:client\"",
-    "test:watch": "yarn test --watch",
+    "build:dev": "NODE_ENV=development webpack",
+    "build:prod": "NODE_ENV=production webpack",
+    "clean": "concurrently \"rm -rf node_modules && npm i\" \"rm -rf dist\"",
+    "lint:fix": "eslint src/ --ext .ts,.tsx --fix",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "start": "nodemon",
+    "test:watch": "npm test -- --watch",
     "test": "jest --coverage --runInBand --detectOpenHandles --verbose=false"
   },
   "dependencies": {
@@ -59,6 +58,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.5.0",
     "jest-haste-map": "^24.0.0",
     "jest-resolve": "^24.1.0",
@@ -72,7 +72,7 @@
     "typescript": "^3.3.4000",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-middleware": "^3.6.1"
+    "webpack-dev-middleware": "^3.7.0"
   },
   "repository": {
     "type": "git",
