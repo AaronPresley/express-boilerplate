@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 import app, { IS_PROD } from './app';
-import { default as sequelize } from '../config/db';
+import sequelize from '../config/db';
 
 const PORT = 8080;
 

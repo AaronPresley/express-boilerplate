@@ -6,6 +6,8 @@ import * as wpMiddleware from 'webpack-dev-middleware';
 
 import wpConfig from '../../webpack.config';
 
+import UserModel from './models/user';
+
 // --- Route Imports ---
 import authRouterV1 from '../server/api/auth-v1';
 // ---------------------
