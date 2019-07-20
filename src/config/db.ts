@@ -1,9 +1,9 @@
-import * as path from 'path';
-import { Sequelize } from 'sequelize';
+// import * as path from 'path';
+// import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: path.resolve(__dirname, '../../database.db'),
-});
+// const sequelize = new Sequelize({
+//   dialect: 'sqlite',
+//   storage: path.resolve(__dirname, '../../database.db'),
+// });
 
-export default sequelize;
+// export default sequelize;

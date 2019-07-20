@@ -3,15 +3,17 @@ import * as express from 'express';
 import * as path from 'path';
 import * as webpack from 'webpack';
 import * as wpMiddleware from 'webpack-dev-middleware';
-
 import wpConfig from '../../webpack.config';
 
-import UserModel from './models/user';
+// --- Model Imports ---
+
+// ---------------------
 
 // --- Route Imports ---
 import authRouterV1 from '../server/api/auth-v1';
 // ---------------------
 
+export { default as db } from './database';
 export const STATIC_PATH = path.join(__dirname, '../../dist');
 export const IS_PROD = process.env.NODE_ENV === 'production';
 
