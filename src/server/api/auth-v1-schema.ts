@@ -1,4 +1,4 @@
-import { Schema } from "jsonschema";
+import { Schema } from 'jsonschema';
 
 const AuthSchemaV1: Schema = {
   id: '/AuthSchemaV1',

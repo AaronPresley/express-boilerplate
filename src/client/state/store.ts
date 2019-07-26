@@ -1,11 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies, @typescript-eslint/explicit-function-return-type */
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Store } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './index';
 
-export default function configureStore(initialState = {}) {
+export default function configureStore(initialState = {}): Store {
   const createStoreWithMiddleware: Function = applyMiddleware(thunk)(createStore);
 
   // Arguments when we're on Production

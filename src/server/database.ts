@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 const connectUrl = `mongodb://localhost:27017/appname`;
 
-export default ({
+export default {
   connect: async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (mongoose.Promise as any) = Promise;
@@ -12,4 +12,4 @@ export default ({
     });
     return mg.connection;
   },
-});
+};

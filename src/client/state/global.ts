@@ -13,7 +13,7 @@ export const initialState = {
 
 export type StateShape = typeof initialState;
 
-export default ((state = initialState as StateShape, action = {} as Actions): StateShape => {
+export default ((state = initialState as StateShape, action: any = {}): StateShape => {
   switch (action.type) {
     case ActionTypes.SET_USER_DATA:
       return {

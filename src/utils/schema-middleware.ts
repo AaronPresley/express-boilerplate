@@ -1,5 +1,5 @@
-import { Schema, Validator, ValidationError, ValidatorResult } from "jsonschema";
-import { Router, Request, Response, NextFunction } from "express";
+import { Schema, Validator, ValidationError, ValidatorResult } from 'jsonschema';
+import { Router, Request, Response, NextFunction } from 'express';
 
 const v = new Validator();
 
@@ -8,9 +8,9 @@ export const generateErrorMessage = (errors: ValidationError[]): object => {
   errors.forEach(e => {
     const fieldName = e.argument;
     const errType = e.name || null;
-    let message = `Unknown error type of ${errType}`
+    let message = `Unknown error type of ${errType}`;
     if (errType === 'required') {
-      message = `${fieldName} is required`
+      message = `${fieldName} is required`;
     }
     fields[fieldName] = message;
   });
@@ -23,7 +23,7 @@ const schemaMiddleware = (schema: Schema) => (req: Request, res: Response, next:
   if (errors.length) {
     return res.status(400).send({
       errors: generateErrorMessage(errors),
-    })
+    });
   }
   next();
 };
