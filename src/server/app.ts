@@ -10,7 +10,7 @@ import wpConfig from '../../webpack.config';
 // ---------------------
 
 // --- Route Imports ---
-import authRouterV1 from '../server/api/auth-v1';
+import authRouterV1 from './api/auth-v1';
 // ---------------------
 
 export { default as db } from './database';
