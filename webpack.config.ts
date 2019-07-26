@@ -3,16 +3,16 @@ import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
-export default ({
+export default {
   mode,
 
   entry: './src/client/index.tsx',
-  
+
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, '/dist'),
   },
-  
+
   devtool: 'source-map',
 
   resolve: {
@@ -23,16 +23,28 @@ export default ({
     rules: [
       { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
       { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+      {
+        test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          fix: true,
+          quiet: true,
+        },
+      },
     ],
   },
 
   plugins: [
-    new CopyWebpackPlugin([{
-      context: path.join(__dirname, './src/client'),
-      from: 'index.html',
-    }, {
-      context: path.join(__dirname, './src/client'),
-      from: 'assets/**/*.*',
-    }]),
+    new CopyWebpackPlugin([
+      {
+        context: path.join(__dirname, './src/client'),
+        from: 'index.html',
+      },
+      {
+        context: path.join(__dirname, './src/client'),
+        from: 'assets/**/*.*',
+      },
+    ]),
   ],
-});
+};
