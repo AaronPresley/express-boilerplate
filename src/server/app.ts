@@ -6,7 +6,7 @@ import * as wpMiddleware from 'webpack-dev-middleware';
 import wpConfig from '../../webpack.config';
 
 // --- Model Imports ---
-
+import './models/user.model';
 // ---------------------
 
 // --- Route Imports ---
