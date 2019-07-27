@@ -8,7 +8,7 @@
     "build:prod": "NODE_ENV=production webpack",
     "clean": "concurrently \"rm -rf node_modules && npm i\" \"rm -rf dist\"",
     "lint:fix": "npm run lint -- --fix",
-    "lint": "eslint src/ webpack.config.ts jest.config.js .eslintrc.js .prettierrc.js --ext .ts,.tsx",
+    "lint": "eslint src/ webpack.config.ts jest.config.js --ext .ts,.tsx",
     "start": "nodemon",
     "test:watch": "npm test -- --watch",
     "test": "jest --coverage --runInBand --detectOpenHandles --verbose=false"

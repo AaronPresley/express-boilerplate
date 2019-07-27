@@ -1,11 +1,12 @@
-import { Schema, Validator, ValidationError, ValidatorResult } from 'jsonschema';
-import { Router, Request, Response, NextFunction } from 'express';
+import { Schema, Validator, ValidationError } from 'jsonschema';
+import { Request, Response, NextFunction } from 'express';
+import { RequestHandler } from 'express-serve-static-core';
 
 const v = new Validator();
 
 export const generateErrorMessage = (errors: ValidationError[]): object => {
   let fields = {};
-  errors.forEach(e => {
+  errors.forEach((e): void => {
     const fieldName = e.argument;
     const errType = e.name || null;
     let message = `Unknown error type of ${errType}`;
@@ -17,15 +18,21 @@ export const generateErrorMessage = (errors: ValidationError[]): object => {
   return fields;
 };
 
-const schemaMiddleware = (schema: Schema) => (req: Request, res: Response, next: NextFunction) => {
+const schemaMiddleware = (schema: Schema): RequestHandler => (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
   const { body } = req;
   const { errors } = v.validate(body, schema);
+
   if (errors.length) {
-    return res.status(400).send({
+    res.status(400).send({
       errors: generateErrorMessage(errors),
     });
+  } else {
+    next();
   }
-  next();
 };
 
 export default schemaMiddleware;

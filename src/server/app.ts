@@ -36,7 +36,7 @@ if (!IS_PROD) {
 app.use('/api/v1/auth', authRouterV1);
 
 // Everything else should go to our frontend
-app.get('*', (req, res) => {
+app.get('*', (req, res): void => {
   res.sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
 

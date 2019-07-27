@@ -1,11 +1,12 @@
 /* eslint no-console: 0 */
 import * as mongoose from 'mongoose';
 import app, { IS_PROD, db } from './app';
+import { Server } from 'http';
 
 const PORT = 8080;
 
-const startServer = () =>
-  app.listen(PORT, () => {
+const startServer = (): Server =>
+  app.listen(PORT, (): void => {
     let output = `✅ Booting up in DEV mode`;
     if (IS_PROD) {
       output = `✅ Booting in PROD mode`;
@@ -16,9 +17,9 @@ const startServer = () =>
 
 db.connect();
 mongoose.connection
-  .on('error', err => console.error(`🚨 ${err}`))
-  .on('disconnected', () => console.log('🚨 Mongoose disconnected'))
-  .once('open', () => {
+  .on('error', (err): void => console.error(`🚨 ${err}`))
+  .on('disconnected', (): void => console.log('🚨 Mongoose disconnected'))
+  .once('open', (): void => {
     console.log('✅ Mongoose Connected');
     startServer();
   });
