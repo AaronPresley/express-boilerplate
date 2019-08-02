@@ -11,7 +11,7 @@
     "lint": "eslint src/ webpack.config.ts jest.config.js --ext .ts,.tsx",
     "start": "nodemon",
     "test:watch": "npm test -- --watch",
-    "test": "jest --coverage --runInBand --detectOpenHandles --verbose=false"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@emotion/core": "^10.0.9",

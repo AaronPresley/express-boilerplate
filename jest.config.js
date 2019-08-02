@@ -3,7 +3,7 @@
 
 module.exports = {
   // All imported modules in your tests should be mocked automatically
-  // automock: false,
+  automock: false,
 
   // Stop running tests after the first failure
   // bail: false,
@@ -49,10 +49,10 @@ module.exports = {
   // forceCoverageMatch: [],
 
   // A path to a module which exports an async function that is triggered once before all test suites
-  globalSetup: './src/__tests__/_setupFiles/globalSetup.ts',
+  // globalSetup: './src/__tests__/globalSetup.ts',
 
   // A path to a module which exports an async function that is triggered once after all test suites
-  globalTeardown: './src/__tests__/_setupFiles/globalTeardown.ts',
+  // globalTeardown: './src/__tests__/globalTeardown.ts',
 
   // A set of global variables that need to be available in all test environments
   globals: {
@@ -115,7 +115,7 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ['<rootDir>/src/__tests__/_setupFiles/setup.ts'],
+  setupFiles: ['<rootDir>/src/__tests__/setup.ts'],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
   // setupTestFrameworkScriptFile: null,

@@ -1,17 +1,19 @@
-import { Schema } from 'jsonschema';
+import { APSchema } from '../../types';
 
-const AuthSchemaV1: Schema = {
-  id: '/AuthSchemaV1',
-  type: 'object',
-  properties: {
-    email: {
-      type: 'string',
+const AuthSchemaV1: APSchema = {
+  schema: {
+    id: '/AuthSchemaV1',
+    type: 'object',
+    properties: {
+      email: {
+        type: 'string',
+      },
+      password: {
+        type: 'string',
+      },
     },
-    password: {
-      type: 'string',
-    },
+    required: ['email', 'password'],
   },
-  required: ['email', 'password'],
 };
 
 export default AuthSchemaV1;
