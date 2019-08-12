@@ -25,16 +25,16 @@
     "jsonschema": "^1.2.4",
     "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.14",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.26",
     "mongoose": "^5.4.19",
+    "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
-    "react": "^16.8.5",
-    "redux-thunk": "^2.3.0",
     "redux": "^4.0.1",
-    "webpack-dev-middleware": "^3.7.0",
-    "webpack": "^4.29.6"
+    "redux-thunk": "^2.3.0",
+    "webpack": "^4.29.6",
+    "webpack-dev-middleware": "^3.7.0"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.27",

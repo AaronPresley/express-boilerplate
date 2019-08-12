@@ -1,27 +1,37 @@
-import { Connection } from 'mongoose';
+import * as moment from 'moment-timezone';
 import db from '../../../server/database';
-import UserModel, { User } from '../../../server/models/user.model';
+import UserModel, { User, UserSchema } from '../../../server/models/user.model';
+
+jest.mock('moment-timezone', () => ({
+  utc: () => ({
+    toDate: () => new Date(2019, 0, 1),
+  }),
+}));
 
 describe('UserModel', () => {
-  let conn: Connection;
-
   beforeEach(async () => {
-    conn = await db.connect();
-    jest.spyOn(global.Date, 'now').mockImplementation(() => new Date(0, 1, 2019) as any);
+    await db.connect();
   });
 
   afterEach(async () => {
-    await db.clearCollections(conn);
+    await db.clearCollections();
   });
 
   it('should create a new entry', async () => {
     const user: User = await UserModel.create({
-      givenName: 'Aaron',
-      familyName: 'Presley',
-      email: 'some@email.com',
+      givenName: 'John',
+      familyName: 'Smith',
+      email: 'john@smith.com',
     });
 
-    // Ensure it has the expected fields
+    // Ensure the fields have the expected values
+    expect(user.dateCreated.toISOString()).toEqual('2019-01-01T08:00:00.000Z');
+    expect(user.dateModified.toISOString()).toEqual('2019-01-01T08:00:00.000Z');
+    expect(user.email).toEqual('john@smith.com');
+    expect(user.familyName).toEqual('Smith');
+    expect(user.givenName).toEqual('John');
+
+    // Ensure the fields are what we expect
     expect(Object.keys(user.toObject())).toEqual([
       'dateCreated',
       'dateModified',
@@ -31,8 +41,5 @@ describe('UserModel', () => {
       'email',
       '__v',
     ]);
-
-    // Ensure the dates are as expected
-    expect(user.dateCreated).toEqual('asdf');
   });
 });

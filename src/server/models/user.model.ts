@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as moment from 'moment-timezone';
 
 export interface User extends mongoose.Document {
   givenName: string;
@@ -8,7 +9,7 @@ export interface User extends mongoose.Document {
   dateModified?: Date;
 }
 
-const UserSchema: mongoose.Schema = new mongoose.Schema({
+export const UserSchema: mongoose.Schema = new mongoose.Schema({
   givenName: {
     type: String,
   },
@@ -22,12 +23,19 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
   },
   dateCreated: {
     type: Date,
-    default: Date.now(),
+    default: moment.utc().toDate(),
   },
   dateModified: {
     type: Date,
-    default: Date.now(),
+    default: moment.utc().toDate(),
   },
+});
+
+// Updating our date modified
+UserSchema.pre('save', function(next) {
+  const self: any = this;
+  self.dateModified = moment.utc().toDate();
+  next();
 });
 
 export default mongoose.model<User>('User', UserSchema);
