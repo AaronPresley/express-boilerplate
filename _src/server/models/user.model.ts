@@ -4,7 +4,7 @@ import * as moment from 'moment-timezone';
 import * as mongoose from 'mongoose';
 import config from '../../config';
 
-export interface User extends mongoose.Document{
+export interface User extends mongoose.Document {
   _id: string;
   firstName?: string;
   lastName?: string;
@@ -14,14 +14,14 @@ export interface User extends mongoose.Document{
   isAdmin: boolean;
   dateCreated: Date;
   generateJWT: () => string;
-  setPassword: (password:string) => void;
-  validatePassword: (password:string) => boolean;
-};
+  setPassword: (password: string) => void;
+  validatePassword: (password: string) => boolean;
+}
 
 export const UserSchema = new mongoose.Schema<User>({
   firstName: {
     default: null,
-    required:false,
+    required: false,
     type: String,
   },
   lastName: {
@@ -56,24 +56,27 @@ export const UserSchema = new mongoose.Schema<User>({
  * METHODS
  */
 
-UserSchema.methods.toJSON = function() {
-  const thisUser:User = this;
+UserSchema.methods.toJSON = function(): void {
+  const thisUser: User = this;
   const { _id, firstName, lastName, email, isAdmin, dateCreated } = thisUser;
-  return { id:_id, firstName, lastName, email, isAdmin, dateCreated };
+  return { id: _id, firstName, lastName, email, isAdmin, dateCreated };
 };
 
 UserSchema.methods.generateJWT = function() {
-    return jwt.sign({
+  return jwt.sign(
+    {
       id: this._id,
-    }, config.secret);
+    },
+    config.secret,
+  );
 };
 
-UserSchema.methods.setPassword = function(password:string) {
+UserSchema.methods.setPassword = function(password: string) {
   this.salt = crypto.randomBytes(16).toString('hex');
   this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
 };
 
-UserSchema.methods.validatePassword = function(password:string) {
+UserSchema.methods.validatePassword = function(password: string) {
   const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
   return hash === this.hash;
 };
