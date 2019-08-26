@@ -1,1 +1,1 @@
-export const appSecret: string = 'some-appname-secret';
+export const appSecret = 'some-appname-secret';
