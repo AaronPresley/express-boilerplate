@@ -13,6 +13,7 @@ module.exports =  {
     },
   },
   rules:  {
+    '@typescript-eslint/no-object-literal-type-assertion': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
   },
   overrides: [

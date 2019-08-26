@@ -23,7 +23,7 @@ const app: express.Application = express();
 app.use(bodyParser.json());
 app.use('/static/', express.static(STATIC_PATH));
 
-if (!IS_PROD) {
+if (!IS_PROD && process.env.NODE_ENV !== 'test') {
   const compiler = webpack(wpConfig);
   app.use(
     wpMiddleware(compiler, {

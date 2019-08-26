@@ -14,6 +14,14 @@ with Express / TypeScript / React.
 - Jest for testing
 - JWT for authentication
 
+## Copying To A New Directory
+
+Here's a script to copy this project into a new directory without any git history (script assumes you're within the `express_boilerplate` dir).
+
+```
+$ rsync -ax --exclude=node_modules --exclude=.git ./ /path/to/new_project
+```
+
 ## Getting Started
 
 Clone this repo then run `yarn` to install dependencies.
