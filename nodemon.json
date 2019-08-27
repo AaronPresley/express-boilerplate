@@ -6,7 +6,11 @@
     "node_modules"
   ],
   "watch": [
-    "src/server"
+    "src/schemas/**/*",
+    "src/server/**/*",
+    "src/types/**/*",
+    "src/utils/**/*",
+    "nodemon.json"
   ],
   "exec": "./node_modules/.bin/ts-node src/server/index.ts",
   "ext": "ts"

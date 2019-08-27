@@ -1,34 +1,43 @@
-/* eslint-disable global-require, import/no-dynamic-require */
-
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import * as fs from 'fs';
 import * as path from 'path';
+import * as webpack from 'webpack';
+import * as wpMiddleware from 'webpack-dev-middleware';
+import wpConfig from '../../webpack.config';
 
-import authRoute from './api/auth';
+// --- Model Imports ---
+import './models/user.model';
+// ---------------------
 
-const STATIC_PATH = path.join(__dirname, '../../dist');
-const IS_PROD = process.env.NODE_ENV === 'production';
+// --- Route Imports ---
+import authRouterV1 from './api/auth-v1';
+// ---------------------
 
 export { default as db } from './database';
-export const app: express.Application = express();
+export const STATIC_PATH = path.join(__dirname, '../../dist');
+export const IS_PROD = process.env.NODE_ENV === 'production';
 
-// Bootstrapping our models
-const modelPath = path.join(__dirname, 'models');
-fs.readdirSync(modelPath)
-  .filter(file => file.indexOf('model.ts') > -1)
-  .forEach(file => require(`${modelPath}/${file}`));
+const app: express.Application = express();
 
-// Using body parser
+// App setup
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
 app.use('/static/', express.static(STATIC_PATH));
 
-// Initializing our routes
-app.use('/api/v1/auth', authRoute);
+if (!IS_PROD && process.env.NODE_ENV !== 'test') {
+  const compiler = webpack(wpConfig);
+  app.use(
+    wpMiddleware(compiler, {
+      writeToDisk: true,
+    }),
+  );
+}
 
-app.get('*', (req, res) => {
+// Our API routes
+app.use('/api/v1/auth', authRouterV1);
+
+// Everything else should go to our frontend
+app.get('*', (req, res): void => {
   res.sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
+
+export default app;

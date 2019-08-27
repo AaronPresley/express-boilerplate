@@ -29,6 +29,7 @@
 .vscode
 .vuepress/dist
 .yarn-integrity
+*.code-workspace
 *.log
 *.pid
 *.pid.lock
@@ -37,6 +38,7 @@
 bower_components
 build/Release
 coverage
+database.db
 dist
 Icon
 jspm_packages/

@@ -1,53 +1,33 @@
-module.exports = {
-  env: {
-    browser: true,
-    es6: true,
-    node: true,
-  },
-  extends: [
-    'airbnb',
+module.exports =  {
+  parser:  '@typescript-eslint/parser',
+  extends:  [
     'plugin:@typescript-eslint/recommended',
-    'prettier',
     'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+  parserOptions:  {
+    ecmaVersion:  2018,
+    sourceType:  'module',
+    ecmaFeatures:  {
+      jsx:  true,
+    },
   },
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    jsx: true,
-    ecmaVersion: 2018,
-    sourceType: 'module',
-    useJSXTextNode: true
-  },
-  plugins: [
-    '@typescript-eslint',
-    'react',
-  ],
-  settings: {
-    'import/resolver': {
-      'typescript': {},
-    }
-  },
-  rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off',
+  rules:  {
     '@typescript-eslint/no-object-literal-type-assertion': 'off',
-    'func-names': 'off',
-    'import/prefer-default-export': 'off',
-    'no-shadow': 'off',
-    'no-underscore-dangle': 'off',
-    'react/jsx-filename-extension': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
   },
-  globals: {
-    afterAll: true,
-    afterEach: true,
-    beforeAll: true,
-    beforeEach: true,
-    describe: true,
-    expect: true,
-    fail: true,
-    it: true,
-    jest: true,
-  }
+  overrides: [
+    {
+      files: ['src/__tests__/**'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+      },
+    }
+  ],
+  settings:  {
+    react:  {
+      version:  'detect',  // Tells eslint-plugin-react to automatically detect the version of React to use
+    },
+  },
 };

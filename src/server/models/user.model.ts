@@ -1,32 +1,29 @@
-import * as crypto from 'crypto';
+import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import * as moment from 'moment-timezone';
 import * as mongoose from 'mongoose';
-import config from '../../config';
+import { appSecret } from '../../config';
 
-export interface User extends mongoose.Document{
-  _id: string;
-  firstName?: string;
-  lastName?: string;
+export interface User extends mongoose.Document {
+  dateCreated?: Date;
+  dateModified?: Date;
   email: string;
+  familyName: string;
+  givenName: string;
   hash?: string;
-  salt?: string;
   isAdmin: boolean;
-  dateCreated: Date;
-  generateJWT: () => string;
-  setPassword: (password:string) => void;
-  validatePassword: (password:string) => boolean;
-};
+  salt?: string;
 
-export const UserSchema = new mongoose.Schema<User>({
-  firstName: {
-    default: null,
-    required:false,
+  generateJwt: () => string;
+  isValidPassword: (rawPassword: string) => boolean;
+  setPassword: (rawPassword: string) => void;
+}
+
+export const UserSchema: mongoose.Schema = new mongoose.Schema({
+  givenName: {
     type: String,
   },
-  lastName: {
-    default: null,
-    required: false,
+  familyName: {
     type: String,
   },
   email: {
@@ -38,44 +35,64 @@ export const UserSchema = new mongoose.Schema<User>({
     type: String,
     default: null,
   },
-  salt: {
-    type: String,
-    default: null,
-  },
   isAdmin: {
     type: Boolean,
     default: false,
   },
   dateCreated: {
     type: Date,
-    default: moment.utc().toDate() as Date,
+    default: moment.utc().toDate(),
+  },
+  dateModified: {
+    type: Date,
+    default: moment.utc().toDate(),
   },
 });
 
+// Updating our date modified
+UserSchema.pre('save', function(next): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const self: any = this;
+  self.dateModified = moment.utc().toDate();
+  next();
+});
+
+UserSchema.methods.toJSON = function(): JSON {
+  const thisUser: User = this;
+  const data = thisUser.toObject();
+  delete data.hash;
+  return data;
+};
+
+// ---------- CUSTOM METHODS -----------
+
 /**
- * METHODS
+ * Creates a JWT auth token with the user's ID
+ * @return {string} Return
  */
-
-UserSchema.methods.toJSON = function() {
-  const thisUser:User = this;
-  const { _id, firstName, lastName, email, isAdmin, dateCreated } = thisUser;
-  return { id:_id, firstName, lastName, email, isAdmin, dateCreated };
+UserSchema.methods.generateJwt = function(): string {
+  return jwt.sign({ id: this._id }, appSecret);
 };
 
-UserSchema.methods.generateJWT = function() {
-    return jwt.sign({
-      id: this._id,
-    }, config.secret);
+/**
+ * Sets this user's password to the given raw string (after salting and hashing)
+ * @param {string} rawPassword - The raw string to set as the new password
+ * @return {void} Return
+ */
+UserSchema.methods.setPassword = async function(rawPassword: string): Promise<void> {
+  const thisUser: User = this;
+  const salt = bcrypt.genSaltSync(10);
+  thisUser.hash = bcrypt.hashSync(rawPassword, salt);
 };
 
-UserSchema.methods.setPassword = function(password:string) {
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+/**
+ * Accepts a raw string and returns whether or not it's the user's password
+ * @param {string} rawPassword - The raw string to check against
+ * @return {boolean} Return
+ */
+UserSchema.methods.isValidPassword = function(rawPassword: string): boolean {
+  const thisUser: User = this;
+  return bcrypt.compareSync(rawPassword, thisUser.hash);
 };
 
-UserSchema.methods.validatePassword = function(password:string) {
-  const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-  return hash === this.hash;
-};
-
-export const UserModel = mongoose.model<User>('User', UserSchema, 'Users', true);
+export default mongoose.model<User>('User', UserSchema);
