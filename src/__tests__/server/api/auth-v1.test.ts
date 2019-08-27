@@ -35,13 +35,36 @@ describe('/auth/v1', () => {
       authToken = user.generateJwt();
     });
 
-    // it('should return the', async () => {
-    //   const resp = await request(app)
-    //     .get('/api/v1/auth')
-    //     // .set('Authorization', authToken)
-    //     .then(r => JSON.parse(r.text));
-    //   expect(resp).toEqual({});
-    // });
+    it(`should return the user's info`, async () => {
+      const resp = await request(app)
+        .get('/api/v1/auth')
+        .set('Authorization', authToken)
+        .then(r => JSON.parse(r.text));
+
+      expect(Object.keys(resp)).toEqual([
+        'isAdmin',
+        'dateCreated',
+        'dateModified',
+        '_id',
+        'givenName',
+        'familyName',
+        'email',
+        '__v',
+      ]);
+    });
+
+    it(`should show an error if no auth header`, async () => {
+      const resp = await request(app)
+        .get('/api/v1/auth')
+        .then(r => JSON.parse(r.text));
+      expect(resp).toEqual({
+        errors: {
+          fields: {
+            __global__: `You don't have authorization`,
+          },
+        },
+      });
+    });
   });
 
   describe('logging in', () => {

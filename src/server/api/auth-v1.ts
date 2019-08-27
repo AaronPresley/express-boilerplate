@@ -6,7 +6,8 @@ import AuthSchemaV1 from './auth-v1-schema';
 const router: Router = Router();
 
 router.get('/', requiresAuth(), (req: Request, res: Response): void => {
-  res.send({ hi: 'world' });
+  const { user } = res.locals;
+  res.send(user.toJSON());
 });
 
 router.post(
