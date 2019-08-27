@@ -1,9 +1,9 @@
 import * as request from 'supertest';
-import app, { db } from '../../../../src/server/app';
-import UserModel, { User } from '../../../server/models/user.model';
-import { logError } from '../../../utils';
+import app, { db } from '../../../src/server/app';
+import UserModel, { User } from '../../../src/server/models/user.model';
+import { logError } from '../../../src/utils';
 
-jest.mock('../../../utils/log');
+jest.mock('../../../src/utils/log');
 jest.mock('moment-timezone', () => ({
   utc: () => ({
     toDate: () => new Date(2019, 0, 1),

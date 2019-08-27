@@ -1,5 +1,5 @@
-import db from '../../../server/database';
-import UserModel, { User } from '../../../server/models/user.model';
+import db from '../../../src/server/database';
+import UserModel, { User } from '../../../src/server/models/user.model';
 
 jest.mock('moment-timezone', () => ({
   utc: () => ({

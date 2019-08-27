@@ -1,9 +1,9 @@
 import * as request from 'supertest';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { db } from '../../../src/server/app';
-import { requiresAuth } from '../../../src/utils/auth-helpers';
-import UserModel, { User } from '../../server/models/user.model';
+import { db } from '../../src/server/app';
+import { requiresAuth } from '../../src/utils/auth-helpers';
+import UserModel, { User } from '../../src/server/models/user.model';
 
 // import { NextFunction, Request, Response } from 'express';
 

@@ -18,7 +18,7 @@ module.exports =  {
   },
   overrides: [
     {
-      files: ['src/__tests__/**'],
+      files: ['__tests__/**'],
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-explicit-any': 'off',

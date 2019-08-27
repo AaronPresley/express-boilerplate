@@ -1,5 +1,5 @@
-import { APSchema, ExpressRequest, ExpressResponse, NextFunction } from '../../types';
-import schemaMiddleware from '../../utils/schema-middleware';
+import { APSchema, ExpressRequest, ExpressResponse, NextFunction } from '../../src/types';
+import schemaMiddleware from '../../src/utils/schema-middleware';
 
 describe('SchemaMiddleware', () => {
   let schema: APSchema;
