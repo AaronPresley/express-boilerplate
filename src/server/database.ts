@@ -23,10 +23,9 @@ export default {
   },
 
   clearCollections: async (): Promise<void> => {
-    const calls: Promise<void>[] = [];
     (await mongoose.connection.db.collections()).forEach((c): void => {
-      calls.push(c.drop());
+      // A weird bug which was fixed by https://stackoverflow.com/q/42968840
+      c.drop().catch((): Promise<void> => c.drop());
     });
-    await Promise.all(calls);
   },
 };
